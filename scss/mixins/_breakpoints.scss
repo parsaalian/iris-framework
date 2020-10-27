@@ -1,0 +1,75 @@
+// TODO: fix the comments
+// This function returns the first breakpoint after the given
+// E.g: next-breakpoint(small) = large
+@function next-breakpoint($name, $breakpoints-names: map-get($responsive-breakpoints)) {
+    $i: index($breakpoints-names, $name);
+    @return if($i < length($breakpoints-names), nth($breakpoints-names, $i + 1), null);
+}
+
+
+// This function returns the minimum value possible for the given breakpoint
+// E.g: For the given breakpoint set: (mobile: 576px, tablet: 768px, small: 992px, large: 1200px)
+// -> min-breakpoint(mobile) = 576px
+@function min-breakpoint($name, $breakpoints: $responsive-breakpoints) {
+    $min: map-get($breakpoints, $name);
+    @return if($min != 0, $min, null);
+}
+
+
+// This function returns the maximum possible value after the given breakpoint
+// E.g: For the given breakpoint set: (mobile: 576px, tablet: 768px, small: 992px, large: 1200px)
+// -> max-breakpoint(tablet) = 991.9px
+@function max-breakpoint($name, $breakpoints: $responsive-breakpoints) {
+    $max: map-get($breakpoints, next-breakpoint($name));
+    @return if(max != 0, $max - 0.1px, null);
+}
+
+
+// Defines the media query with minimum size of the screen
+@mixin min-media($name, $breakpoints: $responsive-breakpoints) {
+    $min: min-breakpoint($name, $breakpoints);
+    @if $min {
+        @media screen and (min-width: $min) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+
+// Defines the media query with the maximum size of the screen
+@mixin max-media($name, $breakpoints: $responsive-breakpoints) {
+    $max: max-breakpoint($name, $breakpoints);
+    @if $max {
+        @media screen and (max-width: $max) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+
+// Define the media query between two given values
+@mixin between-media ($down, $up, $breakpoints: $responsive-breakpoints) {
+    $min: min-breakpoint($down, $breakpoints);
+    $max: max-breakpoint($up, $breakpoints);
+    @if $min != null and $max != null {
+        @media screen and (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    }
+    @else if $max == null {
+        @include min-media($min, $breakpoints) {
+            @content;
+        }
+    }
+    @else if $min == null {
+        @include max-media($max, $breakpoints) {
+            @content;
+        }
+    }
+}

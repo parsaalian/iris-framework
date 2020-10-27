@@ -1,0 +1,231 @@
+/***************
+    paragraph
+***************/
+p {
+  margin: 0 0 1rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.6; }
+  p.lead {
+    font-size: 1.15rem;
+    font-weight: 300; }
+
+/***************
+     links
+***************/
+a {
+  text-decoration: none;
+  color: #1779ba; }
+  a:active {
+    outline: 0; }
+  a:hover {
+    outline: 0; }
+
+/***************
+    headers
+***************/
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  margin: 0 0 0.5rem 0.5rem;
+  font-weight: normal; }
+  h1 small, .h1 small,
+  h2 small, .h2 small,
+  h3 small, .h3 small,
+  h4 small, .h4 small,
+  h5 small, .h5 small,
+  h6 small, .h6 small {
+    font-weight: 300;
+    color: #bbc3c6; }
+  h1.large, .h1.large,
+  h2.large, .h2.large,
+  h3.large, .h3.large,
+  h4.large, .h4.large,
+  h5.large, .h5.large,
+  h6.large, .h6.large {
+    font-weight: 300;
+    line-height: 1.25; }
+
+h1, .h1 {
+  font-size: 2.5rem; }
+  h1.large, .h1.large {
+    font-size: 6rem; }
+
+h2, .h2 {
+  font-size: 2.25rem; }
+  h2.large, .h2.large {
+    font-size: 5.5rem; }
+
+h3, .h3 {
+  font-size: 2rem; }
+  h3.large, .h3.large {
+    font-size: 5rem; }
+
+h4, .h4 {
+  font-size: 1.75rem; }
+  h4.large, .h4.large {
+    font-size: 4.5rem; }
+
+h5, .h5 {
+  font-size: 1.5rem; }
+  h5.large, .h5.large {
+    font-size: 4rem; }
+
+h6, .h6 {
+  font-size: 1.25rem; }
+  h6.large, .h6.large {
+    font-size: 3.5rem; }
+
+/***************
+    highlight
+***************/
+mark, .mark {
+  padding: 0.2rem;
+  /* Default color: yellow */ }
+  mark.blue, .mark.blue {
+    background-color: lightblue; }
+  mark.green, .mark.green {
+    background-color: lightgreen; }
+  mark.orange, .mark.orange {
+    background-color: lightsalmon; }
+  mark.pink, .mark.pink {
+    background-color: pink; }
+
+/***************
+    texts
+***************/
+small, .small {
+  font-size: 80%; }
+
+/*
+ *for Safari 6
+ */
+b, strong {
+  font-weight: inherit; }
+
+/*
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b, strong {
+  font-weight: bolder; }
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5rem; }
+
+sub {
+  bottom: -0.25rem; }
+
+abbr[title] {
+  border-bottom: 1px dotted #0a0a0a;
+  cursor: help;
+  text-decoration: none; }
+
+.stat {
+  font-size: 2.5rem; }
+
+hr {
+  clear: both;
+  max-width: 75rem;
+  color: #bbc3c6;
+  margin: 1.5rem auto; }
+
+blockquote {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  color: #bbc3c6; }
+  blockquote p {
+    line-height: 1.6; }
+  blockquote cite {
+    margin: 0 0 1rem 0.5rem;
+    display: block;
+    font-size: 75%; }
+    blockquote cite::before {
+      content: "\2014 \00A0";
+      font-size: 75%; }
+
+/***************
+    lists
+***************/
+ul, ol, dl {
+  margin-left: 1.25rem;
+  margin-bottom: 1rem;
+  line-height: 1.6; }
+
+ul {
+  list-style-type: disc; }
+
+ul ul, ul ol, ol ul, ol ol {
+  margin-left: 1.25rem;
+  margin-bottom: 0; }
+ul.inline, ol.inline {
+  padding-left: 0;
+  list-style: none; }
+  ul.inline *, ol.inline * {
+    display: inline-block; }
+    ul.inline *:not(:last-child), ol.inline *:not(:last-child) {
+      margin-right: 0.5rem; }
+
+li {
+  font-size: inherit; }
+
+dt {
+  font-weight: bold;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem; }
+
+dd {
+  margin-bottom: 0.3rem; }
+
+/***************
+    codes
+***************/
+pre, code, kbd, samp {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 90%; }
+
+pre {
+  color: #666;
+  margin-bottom: 1rem;
+  overflow: auto;
+  -ms-overflow-style: scrollbar; }
+  pre .scroll {
+    max-height: 340px;
+    overflow-y: scroll; }
+
+code {
+  word-break: break-word;
+  color: #c0341d; }
+
+kbd {
+  padding: 0.2rem;
+  color: #c0341d;
+  background-color: #fcedea;
+  border-radius: 0.1rem; }
+
+dfn {
+  font-style: italic; }
+
+/***************
+    helpers
+***************/
+.text-right {
+  text-align: right; }
+
+.text-center {
+  text-align: center; }
+
+.text-left {
+  text-align: left; }
+
+.text-justify {
+  text-align: justify; }
+
+/*# sourceMappingURL=typography.css.map */

@@ -1,0 +1,18 @@
+// This mixin create a flex-box model for row.
+//
+// @param direction {string} - An string that vary for different languages (rtl, ltr).
+@mixin row($direction: $global-text-direction) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 1 100%;
+  flex: 0 1 100%;
+  width: 100%;
+  @if $direction == 'ltr' {
+    flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+  } @else {
+    flex-flow: row-reverse wrap-reverse;
+    -ms-flex-flow: row-reverse wrap-reverse;
+  }
+}

@@ -1,0 +1,255 @@
+$mono-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+$link-color: #1779ba;
+$medium-grey: #bbc3c6;
+$blue-mark: lightblue;
+$orange-mark: lightsalmon;
+$green-mark: lightgreen;
+$pink-mark: pink;
+$code-color: #c0341d;
+$code-back: #fcedea;
+
+$headings: (h1: 2.5, h2:2.25, h3:2, h4:1.75, h5:1.5, h6: 1.25);
+
+/***************
+    paragraph
+***************/
+p {
+    margin: 0 0 1rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    &.lead {
+        font-size: 1.15rem;
+        font-weight: 300;
+    }
+}
+
+/***************
+     links
+***************/
+
+a {
+    text-decoration: none;
+    color: $link-color;
+    &:active { outline: 0 }
+    &:hover { outline: 0 }
+}
+
+/***************
+    headers
+***************/
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    margin: 0 0 0.5rem 0.5rem;
+    font-weight: normal;
+    small {
+        font-weight: 300;
+        color: $medium-grey;
+    }
+    &.large {
+        font-weight: 300;
+        line-height: 1.25;
+    }
+}
+
+@each $heading, $size in $headings {
+    #{$heading}, .#{$heading} {
+        font-size: $size * 1rem;
+        &.large {
+            font-size: (2 * $size + 1) * 1rem
+        }
+    }
+}
+
+/***************
+    highlight
+***************/
+
+mark, .mark {
+    padding: 0.2rem;
+    /* Default color: yellow */
+    &.blue { background-color: $blue-mark; }
+    &.green { background-color: $green-mark; }
+    &.orange { background-color: $orange-mark; }
+    &.pink { background-color: $pink-mark; }
+}
+
+/***************
+    texts
+***************/
+
+small, .small {
+    font-size: 80%;
+}
+
+/*
+ *for Safari 6
+ */
+
+b, strong {
+    font-weight: inherit;
+}
+
+/*
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b, strong {
+    font-weight: bolder;
+}
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5rem;
+}
+
+sub {
+  bottom: -0.25rem;
+}
+
+abbr[title] {
+    border-bottom: 1px dotted #0a0a0a;
+    cursor: help;
+    text-decoration: none;
+}
+
+.stat {
+    font-size: 2.5rem;
+}
+
+hr {
+    clear: both;
+    max-width: 75rem;
+    color: $medium-grey;
+    margin: 1.5rem auto;
+}
+
+blockquote {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    color: $medium-grey;
+    p {
+        line-height: 1.6;
+    }
+    cite {
+        margin: 0 0 1rem 0.5rem;
+        display: block;
+        font-size: 75%;
+        &::before {
+            content: "\2014 \00A0";
+            font-size: 75%;
+        }
+    }
+}
+
+/***************
+    lists
+***************/
+
+ul, ol, dl {
+    margin-left: 1.25rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ul, ol {
+    ul, ol {
+        margin-left: 1.25rem;
+        margin-bottom: 0;
+    }
+    &.inline {
+        padding-left: 0;
+        list-style: none;
+        * {
+            display: inline-block;
+            &:not(:last-child) {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
+
+li {
+    font-size: inherit;
+}
+
+dt {
+    font-weight: bold;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+dd {
+    margin-bottom: 0.3rem;
+}
+
+/***************
+    codes
+***************/
+
+pre, code, kbd, samp {
+    font-family: $mono-family;
+    font-size: 90%;
+}
+
+pre {
+    color: #666;
+    margin-bottom: 1rem;
+    overflow: auto;
+    -ms-overflow-style: scrollbar;
+    .scroll {
+        max-height: 340px;
+        overflow-y: scroll;
+    }
+}
+
+code {
+    word-break: break-word;
+    color: $code-color;
+}
+
+kbd {
+    padding: 0.2rem;
+    color: $code-color;
+    background-color: $code-back;
+    border-radius: 0.1rem;
+}
+
+dfn {
+    font-style: italic;
+}
+
+/***************
+    helpers
+***************/
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-justify {
+    text-align: justify;
+}

@@ -1,0 +1,45 @@
+// This mixin creates different cell sizes in different screen sizes.
+//
+// @param grid {number} - specifies the number of columns in grid system.
+// @param breakpoints {map} - to define the sizes of screen for media queries.
+// @param vertical {boolean} - for making cells for vertical and horizontal (row or column) views.
+@mixin responsive-cells($grid: $grid-base, $breakpoints: $responsive-breakpoints, $vertical: false) {
+  $prefix: if($vertical, '.column', '.row');
+  @each $name, $size in $breakpoints {
+    @include min-media($name) {
+      // the position of cells
+      [class*="#{$name}-"] {
+        position: relative;
+        width: 100%;
+      }
+      // auto cells
+      #{unquote($prefix)} > .cell.#{$name}-auto {
+        @include cell(auto);
+      }
+      // auto guttered cells
+      #{unquote($prefix)} > .cell.#{$name}-auto-gutter {
+        @include cell(auto, false, true, $name);
+      }
+      // shrink cells
+      #{unquote($prefix)} > .cell.#{$name}-shrink {
+        @include cell(shrink);
+      }
+      // shrink guttered cells
+      #{unquote($prefix)} > .cell.#{$name}-shrink-gutter {
+        @include cell(shrink, false, true, $name);
+      }
+      // loop for creating different sizes of cells
+      @for $i from 1 through $grid-base {
+        // ordinary cells with i/grid-base size
+        #{unquote($prefix)} > .cell.#{$name}-#{$i} {
+          @include cell(100% * $i / $grid-base);
+        }
+        // guttered cells by two specifiers: 1. gutter suffix or 2. being child of guttered row
+        #{unquote($prefix)} > .cell.#{$name}-#{$i}-gutter,
+        #{unquote($prefix)}.gutter > .cell.#{$name}-#{$i} {
+          @include cell(100% * $i / $grid-base, false, true, $name);
+        }
+      }
+    }
+  }
+}

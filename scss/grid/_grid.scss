@@ -1,0 +1,146 @@
+// Makes the container for grid.
+//
+// @param container-sizes {map} - a map for making different ratio containers.
+// @param container-padding {number} - number which defines the value of padding of container.
+@mixin grid-container($container-sizes: $grid-container-sizes, $container-padding: $grid-cell-padding) {
+  // ordinary container
+  .container {
+    @include container($container-padding);
+    // makes the base container
+    @include max-container(map-get($container-sizes, 'normal'));
+    // loop through container sizes and make other container types
+    @each $type, $ratio in $container-sizes {
+      @if $type != 'normal' {
+        &.#{unquote($type)} {
+          @include max-container($ratio);
+        }
+      }
+    }
+    // fluid container which has screen-width but with padding
+    &.fluid {
+      @include container($container-padding);
+    }
+    // fluid container without padding
+    &.full {
+      @include container($container-padding, full);
+    }
+  }
+}
+// Making cells for the grid system.
+//
+// @param grid {number} - the number of columns for the grid system.
+// @param breakpoints {map} - map of responsive breakpoints for different screen sizes.
+// @param cell-padding {number} - number which defines the value of padding of each cell.
+@mixin grid-cell($grid: $grid-base, $breakpoints: $responsive-breakpoints, $cell-padding: $grid-cell-padding) {
+  // horizontal cells
+  .row > .cell {
+    height: 100%;
+    padding-right: $cell-padding;
+    padding-left: $cell-padding;
+    @include cell();
+    // defines the guttered single class cells
+    @each $name, $size in $breakpoints {
+      @include min-media($name) {
+        &-gutter {
+          @include cell(100% / $grid, false, true, $name);
+        }
+      }
+    }
+    // define auto cells
+    &.auto {
+      @include cell(auto);
+      // define guttered auto cells
+      @each $name, $size in $breakpoints {
+        @include min-media($name) {
+          &-gutter {
+            @include cell(auto, false, true, $name);
+          }
+        }
+      }
+    }
+    // define shrink cells
+    &.shrink {
+      @include cell(shrink);
+      // defines guttered shrink cells
+      @each $name, $size in $breakpoints {
+        @include min-media($name) {
+          &-gutter {
+            @include cell(shrink, false, true, $name);
+          }
+        }
+      }
+    }
+  }
+  // make different sizes of cells (guttered and unguttered)s
+  @include responsive-cells($grid, $breakpoints, false);
+  // vertical cells
+  .column > .cell {
+    width: auto;
+    padding-right: $cell-padding;
+    padding-left: $cell-padding;
+    @include cell(full, true);
+    &-gutter {
+      @include cell(100%, true, true, mobile, top bottom);
+    }
+    // define auto cells
+    &.auto {
+      @include cell(auto, true);
+      &-gutter {
+        @include cell(auto, true, true, mobile, top bottom);
+      }
+    }
+    // define shrink cells
+    &.shrink {
+      @include cell(shrink, true);
+      &-gutter {
+        @include cell(shrink, true, true, mobile, top bottom);
+      }
+    }
+  }
+}
+// Make the row to contain cells.
+//
+// @param grid {number} - the number of columns for the grid system.
+// @param breakpoints {map} - map of responsive breakpoints for different screen sizes.
+@mixin grid-row($grid: $grid-base, $breakpoints: $responsive-breakpoints) {
+  .row {
+    // making base row
+    @include row();
+    // making guttered childs of row
+    @each $name, $size in $breakpoints {
+      @include min-media($name) {
+        // guttered cell which is child of row gutter
+        &.gutter > .cell {
+          @include cell(100% / $grid, false, true, $name);
+          // guttered auto cell which is child of row gutter
+          &.auto {
+            @include cell(auto, false, true, $name);
+          }
+          // guttered shrink cell which is child of row gutterssss
+          &.shrink {
+            @include cell(shrink, false, true, $name);
+          }
+        }
+      }
+    }
+  }
+}
+// Make the column to contain cells.
+//
+@mixin grid-column() {
+  .column {
+    @include column();
+  }
+}
+// Make a grid with full properties.
+//
+// @param grid {number} - the number of columns for the grid system.
+// @param breakpoints {map} - map of responsive breakpoints for different screen sizes.
+// @param padding {number} - number which defines the value of padding of each cell and container.
+// @param container-sizes {map} - a map for making different ratio containers.
+@mixin make-grid($grid: $grid-base, $breakpoints: $responsive-breakpoints, $padding: $grid-cell-padding, $container-sizes: $grid-container-sizes) {
+  @include grid-container($container-sizes, $padding);
+  @include grid-row($grid, $breakpoints);
+  @include grid-column();
+  @include grid-cell($grid, $breakpoints, $padding);
+}

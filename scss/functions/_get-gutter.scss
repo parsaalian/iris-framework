@@ -1,0 +1,10 @@
+// Function to get the gutter due to the screen size from gutter map.
+//
+// @param screen {string} - type of the screen to get from map.
+@function get-gutter($screen) {
+  // for nano and mobile and tablet
+  $low: map-get($grid-gutter, low) / 2;
+  // for small and large desktops
+  $high: map-get($grid-gutter, high) / 2;
+  @return if($screen != large, if($screen != small, $low, $high), $high);
+}

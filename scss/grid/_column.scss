@@ -1,0 +1,12 @@
+// Make the column for the grid
+//
+@mixin column() {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex: 0 1 100%;
+    flex: 0 1 100%;
+    height: 100%;
+    flex-flow: column wrap;
+    -ms-flex-flow: column wrap;
+}

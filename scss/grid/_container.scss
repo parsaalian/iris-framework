@@ -1,0 +1,25 @@
+// This mixin defines the format of container.
+//
+// @param type {string} - type of container such as full.
+@mixin container($padding: $grid-cell-padding, $type: none) {
+  max-width: 100%;
+  margin: 0 auto;
+  // if it is a full container without any padding for inner elements
+  @if $type == full {
+    padding: 0;
+  } @else {
+    padding: 0 $padding;
+  }
+}
+// Container responsivity in the different screen sizes.
+//
+// @param ration {number} - a number to define the ratio of container to breakpoint width.
+// @param breakpoints {map} - the map of breakpoints and their screen sizes.
+@mixin max-container($ratio, $breakpoints: $responsive-breakpoints) {
+  // loops through the breakpoints for setting container width in different screens
+  @each $name, $size in $breakpoints {
+    @include min-media($name, $breakpoints) {
+      max-width: $ratio * $size;
+    }
+  }
+}

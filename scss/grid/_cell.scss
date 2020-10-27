@@ -1,0 +1,79 @@
+// This function returns size if it is not given as (full, auto, shrink).
+//
+// @param {number|list} - number input such as 95%, 0.12, 4 and list such as 1/2, 3 of 10.
+// e.g. cell-size(full) = full, cell-size(95%) = 95%, cell-size(4) = 33.333%, cell-size(0.12) = 12%, cell-size(1/2) = 50%.
+@function cell-size($size: $grid-columns) {
+  // for numeric inputs
+  @if type-of($size) == 'number' {
+    @if unit($size) == '%' {
+      $size: $size;
+    }
+    @elseif $size < 1 {
+      $size: percentage($size);
+    } @else {
+      $size: percentage($size / $grid-columns);
+    }
+  }
+  // for list inputs
+  @elseif type-of($size) == 'list' {
+    $size: percentage(nth($size, 1) / nth($size, 3));
+  }
+  @return $size;
+}
+// This mixin returns a cell due to given input.
+//
+// @param size {string|number} - string such as (full, auto, shrink) which are types of cells and number such as 50% which specifies a 50% width/height cell.
+// @param gutter {number} - a number which specifies the value of gutter of the cell, 0 if cell has no gutter.
+// @param vertical {boolean} - a boolean that specifies if cell is vertical or horizontal.
+@mixin cell-properties($size: full, $gutter: $grid-gutter, $vertical: false) {
+  $direction: if($vertical == true, height, width);
+  // for none type cells
+  @if $size == full {
+    -ms-flex: 0 0 100% / $grid-base;
+    flex: 0 0 100% / $grid-base;
+    $value: calc(100% - #{$gutter});
+    #{$direction}: $value;
+  }
+  // for auto cells
+  @elseif $size == auto {
+    -ms-flex: 1 1 0;
+    flex: 1 1 0;
+    #{$direction}: auto;
+  }
+  // for shrink cells
+  @elseif $size == shrink {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    #{$direction}: auto;
+  }
+  // for other types (e.g. percentage as size)
+  @else {
+    $size: cell-size($size);
+    $value: calc(#{$size} - #{$gutter});
+    -ms-flex: 0 0 $value;
+    flex: 0 0 $value;
+    #{$direction}: $value;
+  }
+}
+// A mixin to create a cell with full properties.
+//
+// @param size {string|number} - string such as (full, auto, shrink) which are types of cells and number such as 50% which specifies a 50% width/height cell.
+// @param vertical {boolean} - a boolean that specifies if cell is vertical or horizontal.
+// @param have-gutter {boolean} - a boolean to define if cell has gutter of not.
+// @param screen {type}  - type to get the gutter from gutter map in settings due to the type.
+// @param gutter-dir {list} - list such as left right which defines the direction/s that have gutter.
+// @param gutter-op {string} - string such as '' or '-' which specifies the sign of gutter.
+@mixin cell($size: full, $vertical: false, $have-gutter: false, $screen: large, $gutter-dir: left right, $gutter-op: '') {
+  // get the gutter due to screen type
+  $gutter: get-gutter($screen);
+  @if $have-gutter {
+    // set margin and width/height of cell
+    @include cell-properties($size, $gutter, $vertical);
+    @each $dir in $gutter-dir {
+      margin-#{$dir}: unquote("#{$gutter-op}#{$gutter}");
+    }
+  } @else {
+    // ordinary cell without gutter
+    @include cell-properties($size, 0px, $vertical);
+  }
+}
